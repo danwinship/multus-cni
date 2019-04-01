@@ -12,6 +12,7 @@ MULTUS_KUBECONFIG_FILE_HOST="/etc/cni/net.d/multus.d/multus.kubeconfig"
 MULTUS_NAMESPACE_ISOLATION=false
 MULTUS_LOG_LEVEL=""
 MULTUS_LOG_FILE=""
+MULTUS_EXIT=false
 
 # Give help text for parameters.
 function usage()
@@ -33,6 +34,7 @@ function usage()
     echo -e "\t--namespace-isolation=$MULTUS_NAMESPACE_ISOLATION"
     echo -e "\t--multus-log-level=$MULTUS_LOG_LEVEL (empty by default, used only with --multus-conf-file=auto)"
     echo -e "\t--multus-log-file=$MULTUS_LOG_FILE (empty by default, used only with --multus-conf-file=auto)"
+    echo -e "\t--exit=$MULTUS_EXIT"
 }
 
 # Parse parameters given as arguments to this script.
@@ -67,6 +69,9 @@ while [ "$1" != "" ]; do
             ;;
         --multus-log-file)
             MULTUS_LOG_FILE=$VALUE
+            ;;
+        --exit)
+            MULTUS_EXIT=$VALUE
             ;;
         *)
             echo "WARNING: unknown parameter \"$PARAM\""
@@ -235,6 +240,11 @@ EOF
 fi
 
 # ---------------------- end Generate "00-multus.conf".
+
+if [ "$MULTUS_EXIT" == true ]; then
+    echo "Success"
+    exit 0
+fi
 
 echo "Entering sleep... (success)"
 

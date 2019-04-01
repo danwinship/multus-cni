@@ -45,6 +45,10 @@ in lexicographical order in cni-conf-dir).
     --multus-conf-file=/usr/src/multus-cni/images/70-multus.conf
     --multus-bin-file=/usr/src/multus-cni/bin/multus
     --multus-kubeconfig-file-host=/etc/cni/net.d/multus.d/multus.kubeconfig
+    --namespace-isolation=false
+    --multus-log-level= (empty by default, used only with --multus-conf-file=auto)
+    --multus-log-file= (empty by default, used only with --multus-conf-file=auto)
+    --exit=false
 ```
 
 You must use an `=` to delimit the parameter name and the value. For example you may set a custom `cni-conf-dir` like so:
